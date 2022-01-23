@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 class Auth
 {
@@ -32,19 +33,10 @@ class Auth
             "email" => $request["email"],
             "password" => $request["password"],
         ];
+
         $data = $this->users;
         $data[] = $infor;
         $this->saveData($data);
-//        foreach ($this->users as $user) {
-//
-//            if ($user->email == $request['email']) {
-//                echo "<script> alert(Đã Có Tài Khoản) </script>";
-//            }
-//            if ($user->email != $request['email']) {
-//
-//            }
-//        }
-
 
     }
 
@@ -55,6 +47,7 @@ class Auth
         foreach ($this->users as $user) {
             if ($user->email == $email) {
                 if ($user->password == $password) {
+                    $_SESSION['user']=$user;
                     header("location:home.php");
                 } else {
                     header("Location:login.php");
@@ -62,6 +55,19 @@ class Auth
             }
         }
     }
+
+    public function logout()
+    {
+        session_destroy();
+        header("Location:login.php");
+    }
+
+
+    
+    
+    
+    
+    
 
     public function getId()
     {

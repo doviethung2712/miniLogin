@@ -1,4 +1,5 @@
 <?php
+
 include_once "Auth.php";
 $user = new Auth();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
